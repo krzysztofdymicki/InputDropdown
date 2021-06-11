@@ -26,8 +26,6 @@ const App = () => {
     return []
   })
 
-  console.log(focused)
-
   useEffect(() => {
     dispatch(initUsers())
   },[dispatch])
@@ -36,17 +34,17 @@ const App = () => {
 
   const handleInputChange = ({ target }) => {
     dispatch(setInput(target.value))
-    dispatch(setFocused(null))
+    filteredNames.length > -1
+      ? dispatch(setFocused(0))
+      : dispatch(setFocused(null))
   }
 
   const handleKeyDown = ({ keyCode, target }) => {
     switch(keyCode) {
       case 40: 
         if(filteredNames.length && (!focused && focused !== 0)) {
-          console.log('here1')
           dispatch(setFocused(0))
         } else if(focused < filteredNames.length - 1) {
-          console.log('here2')
           dispatch(setFocused(focused + 1))
         }
       break
@@ -58,9 +56,12 @@ const App = () => {
         }
       break
       case 13:
-        if(filteredNames.length && (focused || focused === 0)) {
-          dispatch(setInput(filteredNames[focused]))
+        if(filteredNames.length === 1) {
+          dispatch(setInput(filteredNames[0]))
         }
+        else if(filteredNames.length && (focused || focused === 0)) {
+          dispatch(setInput(filteredNames[focused]))
+        } 
       break
       default: return null
     }
