@@ -34,7 +34,7 @@ const App = () => {
 
   const handleInputChange = ({ target }) => {
     dispatch(setInput(target.value))
-    filteredNames.length > -1
+    filteredNames && filteredNames.length > -1
       ? dispatch(setFocused(0))
       : dispatch(setFocused(null))
   }
